@@ -1,17 +1,40 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
+import { validateEmail } from "../../utils/helper";
 
 const Login = ({ setCurrentPage }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
   // Handle Login Form Submit
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setError("Please Enter A Valid Email Address.");
+      return;
+    }
+
+    if (!password) {
+      setError("Please Enter A Password.");
+      return;
+    }
+
+    setError("");
+
+    // LogIn API Call
+    try {
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something Went Wrong. Please Try Again.");
+      }
+    }
   };
 
   return (
