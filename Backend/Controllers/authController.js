@@ -16,7 +16,7 @@ const generateToken = (userId) => {
           "name" : "Nilay Basak",
           "email" : "nilaybasak@gmail.com",
           "password" : "123456@A",
-          "profileImageUrl" : ""
+          "profileImageUrl" : "http://localhost:4000/uploads/1770707527741-Aesthetic-Cute-Anime-Profile-Picture-HD.jpg"
           }
 */
 const registerUser = async (req, res) => {
