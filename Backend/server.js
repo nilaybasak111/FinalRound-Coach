@@ -27,14 +27,19 @@ ConnectDB();
 const authRoutes = require("./Routes/authRoutes");
 const sessionRoutes = require("./Routes/sessionRoutes");
 const questionRoutes = require("./Routes/questionRoutes");
+const { protect } = require("./Middlewares/authMiddleware");
+const {
+  generateInterviewQuestions,
+  generateConceptExplanation,
+} = require("./Controllers/aiController");
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/sessions", sessionRoutes);
 app.use("/api/questions", questionRoutes);
 
-// app.use("/api/ai/generate-questions", protect, generateInterviewQuestions);
-// app.use("/api/ai/generate-explanation", protect, generateConceptExplanation);
+app.use("/api/ai/generate-questions", protect, generateInterviewQuestions);
+app.use("/api/ai/generate-explanation", protect, generateConceptExplanation);
 
 // Server Uploads Folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads"), {}));
