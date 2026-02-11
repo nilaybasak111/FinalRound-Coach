@@ -1,10 +1,10 @@
-import React, { createContext, useState, useEffect, Children } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { API_PATHS } from "../utils/apiPaths";
 
 export const UserContext = createContext({});
 
-const UserProvider = ({ Children }: any) => {
+const UserProvider = ({ children }: any) => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState<any>(false); // New State To Track Loading
 
@@ -45,7 +45,7 @@ const UserProvider = ({ Children }: any) => {
 
   return (
     <UserContext.Provider value={{ user, loading, updateUser, clearUser }}>
-      {Children}
+      {children}
     </UserContext.Provider>
   );
 };
