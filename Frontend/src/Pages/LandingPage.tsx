@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import LandingPage_Image from "../assets/LandingPage_Image.png";
 import { APP_FEATURES } from "../utils/data.ts";
@@ -7,14 +7,23 @@ import { LuSparkles } from "react-icons/lu";
 import Login from "./Auth/Login.js";
 import SignUp from "./Auth/SignUp.js";
 import Modal from "../components/Modal.js";
+import { UserContext } from "../Context/UserContext.tsx";
+import ProfileInfoCard from "../components/Cards/ProfileInfoCard.tsx";
 
 const LandingPage = () => {
+  const { user } = useContext<any>(UserContext);
   const navigate = useNavigate();
 
   const [openAppModal, setOpenAppModal] = useState(false);
   const [currentPage, setCurrentPage] = useState("login");
 
-  const handleCTA = () => {};
+  const handleCTA = () => {
+    if (!user) {
+      setOpenAppModal(true);
+    } else {
+      navigate("/dashboard");
+    }
+  };
 
   return (
     <>
@@ -27,12 +36,16 @@ const LandingPage = () => {
             <div className="text-xl text-black font-bold">
               Interview Prep AI
             </div>
-            <button
-              className="bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer"
-              onClick={() => setOpenAppModal(true)}
-            >
-              LogIn / SignUp
-            </button>
+            {user ? (
+              <ProfileInfoCard />
+            ) : (
+              <button
+                className="bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer"
+                onClick={() => setOpenAppModal(true)}
+              >
+                LogIn / SignUp
+              </button>
+            )}
           </header>
 
           {/* Body Content */}
