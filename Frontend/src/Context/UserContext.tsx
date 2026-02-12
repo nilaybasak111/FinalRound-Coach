@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { API_PATHS } from "../utils/apiPaths";
 
-export const UserContext = createContext({});
+export const UserContext = createContext<any>(null);
 
 const UserProvider = ({ children }: any) => {
   const [user, setUser] = useState<any>(null);

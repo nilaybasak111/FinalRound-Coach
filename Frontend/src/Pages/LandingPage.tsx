@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 import LandingPage_Image from "../assets/LandingPage_Image.png";
 import { APP_FEATURES } from "../utils/data.ts";
