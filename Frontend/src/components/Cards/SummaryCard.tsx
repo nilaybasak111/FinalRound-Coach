@@ -1,5 +1,6 @@
 import React from "react";
 import { LuTrash2 } from "react-icons/lu";
+import { getInitials } from "../../utils/helper";
 
 interface SummaryCardProps {
   colors: any;
@@ -35,7 +36,9 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
       >
         <div className="flex items-start">
           <div className="flex-shrink-0 w-12 h-12 rounded-md flex items-center justify-center mr-4">
-            <span className="text-lg font-semibold text-black">GU</span>
+            <span className="text-lg font-semibold text-black">
+              {getInitials(role)}
+            </span>
           </div>
 
           {/* Content Container */}
