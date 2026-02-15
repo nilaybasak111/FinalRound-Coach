@@ -59,7 +59,7 @@ const Dashboard = () => {
                   ? moment(data?.updatedAt).format("DD-MM-YYYY")
                   : ""
               }
-              onSelect={() => navigate(`/interview/${data?._id}`)}
+              onSelect={() => navigate(`/interview-prep/${data?._id}`)}
               onDelete={() => setOpenDeleteAlert({ open: true, data })}
             />
           ))}
@@ -74,17 +74,17 @@ const Dashboard = () => {
         </button>
       </div>
 
-      <Modal 
-      isOpen={openCreateModal}
-      onClose={()=>{
-        setOpenCreateModal(false);
-      }}
-      hideHeader
+      <Modal
+        isOpen={openCreateModal}
+        onClose={() => {
+          setOpenCreateModal(false);
+        }}
+        hideHeader
       >
         <div>
           <CreateSessionForm />
         </div>
-        </Modal>
+      </Modal>
     </DashboardLayout>
   );
 };
