@@ -6,16 +6,18 @@ export const UserContext = createContext<any>(null);
 
 const UserProvider = ({ children }: any) => {
   const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState<any>(false); // New State To Track Loading
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) return;
+    const token = localStorage.getItem("accessToken");
 
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
+    if (!token) {
       setLoading(false);
       return;
     }
+
+    // Attach token to axios
+    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     const fetchUser = async () => {
       try {
@@ -34,13 +36,20 @@ const UserProvider = ({ children }: any) => {
 
   const updateUser = (userData: any) => {
     setUser(userData);
-    localStorage.setItem("token", userData.token); // Save Token
+
+    localStorage.setItem("accessToken", userData.token);
+
+    axiosInstance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${userData.token}`;
+
     setLoading(false);
   };
 
   const clearUser = () => {
     setUser(null);
-    localStorage.removeItem("token");
+    localStorage.removeItem("accessToken");
+    delete axiosInstance.defaults.headers.common["Authorization"];
   };
 
   return (
